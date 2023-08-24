@@ -1,0 +1,64 @@
+{
+  "name": "movies-auth-ms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/movies-auth-ms/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/movies-auth-ms",
+        "main": "apps/movies-auth-ms/src/main.ts",
+        "tsConfig": "apps/movies-auth-ms/tsconfig.app.json",
+        "assets": ["apps/movies-auth-ms/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/movies-auth-ms/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "movies-auth-ms:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "movies-auth-ms:build:development"
+        },
+        "production": {
+          "buildTarget": "movies-auth-ms:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/movies-auth-ms/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/movies-auth-ms/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

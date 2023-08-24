@@ -1,0 +1,64 @@
+{
+  "name": "movies-api-gateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/movies-api-gateway/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/movies-api-gateway",
+        "main": "apps/movies-api-gateway/src/main.ts",
+        "tsConfig": "apps/movies-api-gateway/tsconfig.app.json",
+        "assets": ["apps/movies-api-gateway/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/movies-api-gateway/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "movies-api-gateway:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "movies-api-gateway:build:development"
+        },
+        "production": {
+          "buildTarget": "movies-api-gateway:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/movies-api-gateway/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/movies-api-gateway/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
