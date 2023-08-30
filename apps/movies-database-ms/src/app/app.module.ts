@@ -4,7 +4,7 @@ import { MongoDatabaseProviderModule } from './providers/database/mongo/mongo-pr
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UsersModule, MongoDatabaseProviderModule],
+  imports: [ConfigModule.forRoot(), UsersModule,MongoDatabaseProviderModule],
   controllers: [],
   providers: [],
 })

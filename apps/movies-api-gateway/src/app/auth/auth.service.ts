@@ -1,16 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { CredentialsDto } from './dto/credentials.dto';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
+  constructor(
+    @Inject('DATABASE-MS') private readonly databaseService: ClientProxy,
+    @Inject('AUTHENTICATION-MS')
+    private readonly authenticationService: ClientProxy
+  ) {}
 
-    signin(dto: AuthDto) {
-        console.log('signin: ', dto);
-        return 'Logou';
+  async login(credentials: CredentialsDto) {
+    try {
+      return this.authenticationService.send(
+        { cmd: 'loginUser' },
+        credentials
+      );
+    } catch (error) {
+      return error;
     }
+  }
 
-    signup(dto: AuthDto) {
-        console.log('signup: ', dto);
-        return 'Criou conta';
-    }
+  async register(credentials: CredentialsDto) {
+    try {
+        return this.authenticationService.send(
+          { cmd: 'registerUser' },
+          credentials
+        );
+      } catch (error) {
+        return error;
+      }
+  }
 }

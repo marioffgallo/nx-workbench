@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './local.strategy';
-import { JwtStrategy } from './jwt.strategy';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { UsersController } from './users.controller';
+import { JwtStrategy } from '../../common/strategy/jwt.strategy';
 
 @Module({
   imports: [
-    PassportModule,
     ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -18,19 +14,26 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         secret: configService.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '1h' },
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
     ClientsModule.register([
+      {
+        name: 'AUTHENTICATION-MS',
+        transport: Transport.TCP,
+        options: {
+          port: 3001,
+        },
+      },
       {
         name: 'DATABASE-MS',
         transport: Transport.TCP,
         options: {
           port: 3002,
-        }
-      }
+        },
+      },
     ]),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
-  controllers: [AuthController],
+  controllers: [UsersController],
+  providers: [JwtStrategy],
 })
-export class AuthModule {}
+export class UsersModule {}
