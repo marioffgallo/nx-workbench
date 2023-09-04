@@ -1,10 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { CredentialsDto } from './dto/credentials.dto';
-import { UserDto } from '../models/users/dto/user.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
+import { CredentialsDto, UserDto } from '@nx-workbench/movies-lib';
 
 @Injectable()
 export class AuthService {

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { UsersController } from './users.controller';
 import { JwtStrategy } from '@nx-workbench/movies-lib';
+import { UserService } from './user.service';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { JwtStrategy } from '@nx-workbench/movies-lib';
       },
     ]),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  controllers: [UsersController],
+  providers: [UserService, JwtStrategy],
 })
-export class AuthModule {}
+export class UsersModule {}

@@ -8,11 +8,9 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
-import { LocalAuthGuard } from '../common/guards/local-auth.guard';
 import { AuthService } from './auth.service';
-import { CredentialsDto } from './dto/credentials.dto';
 import { MessagePattern } from '@nestjs/microservices';
+import { CredentialsDto, JwtAuthGuard, LocalAuthGuard } from '@nx-workbench/movies-lib';
 
 @Controller('authentication')
 export class AuthController {

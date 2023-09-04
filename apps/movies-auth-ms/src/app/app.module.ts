@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-
-import { MongoDatabaseProviderModule } from './providers/database/mongo/mongo-provider.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { MoviesLibModule } from '@nx-workbench/movies-lib';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     AuthModule,
-    MongoDatabaseProviderModule
+    MoviesLibModule
   ],
   controllers: [],
   providers: [],

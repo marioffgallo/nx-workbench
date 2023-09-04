@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CredentialsDto } from './dto/credentials.dto';
 import { ClientProxy } from '@nestjs/microservices';
+import { CredentialsDto } from '@nx-workbench/movies-lib';
 
 @Injectable()
 export class AuthService {

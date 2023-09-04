@@ -4,9 +4,9 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
-import { LocalStrategy } from './local.strategy';
-import { JwtStrategy } from './jwt.strategy';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { LocalStrategy } from '../strategy/local.strategy';
+import { JwtStrategy } from '@nx-workbench/movies-lib';
 
 @Module({
   imports: [
