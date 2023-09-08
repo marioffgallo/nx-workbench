@@ -19,13 +19,6 @@ import { UserService } from './user.service';
     }),
     ClientsModule.register([
       {
-        name: 'AUTHENTICATION-MS',
-        transport: Transport.TCP,
-        options: {
-          port: 3001,
-        },
-      },
-      {
         name: 'DATABASE-MS',
         transport: Transport.TCP,
         options: {

@@ -5,7 +5,6 @@ import { CredentialsDto } from '@nx-workbench/movies-lib';
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject('DATABASE-MS') private readonly databaseService: ClientProxy,
     @Inject('AUTHENTICATION-MS')
     private readonly authenticationService: ClientProxy
   ) {}

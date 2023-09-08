@@ -3,6 +3,7 @@ import { MongoDatabaseProviderModule } from './providers/database/mongo/mongo-pr
 import { ConfigModule } from '@nestjs/config';
 import { MoviesLibModule } from '@nx-workbench/movies-lib';
 import { UsersModule } from './users/users.module';
+import { MoviesModule } from './movies/movies.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     MongoDatabaseProviderModule,
     MoviesLibModule,
+    MoviesModule,
   ],
   controllers: [],
   providers: [],

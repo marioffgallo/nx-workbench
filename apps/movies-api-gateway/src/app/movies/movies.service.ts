@@ -1,25 +1,56 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { MovieDto } from '@nx-workbench/movies-lib';
 
 @Injectable()
 export class MoviesService {
-  create(createMovieDto: CreateMovieDto) {
-    return 'This action adds a new movie';
+  constructor(@Inject('DATABASE-MS') private readonly databaseService: ClientProxy){}
+
+  async getAllMovies() {
+    try {
+      return this.databaseService.send({ cmd: 'getAllMovies' }, {});
+    } catch (error) {
+      return error;
+    }
   }
 
-  findAll() {
-    return `This action returns all movies`;
+  async getById(id: string) {
+    try {
+      return this.databaseService.send({ cmd: 'getMovieById' }, id);
+    } catch (error) {
+      return error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} movie`;
+  async getByMovieName(name: string) {
+    try {
+      return this.databaseService.send({ cmd: 'findByMovieName' }, name);
+    } catch (error) {
+      return error;
+    }
   }
 
-  update(id: number, updateMovieDto: any) {
-    return `This action updates a #${id} movie`;
+  async createMovie(movie: MovieDto) {
+    try {
+      return this.databaseService.send({ cmd: 'createMovie' }, movie);
+    } catch (error) {
+      return error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} movie`;
+  async updateMovie(movie: MovieDto) {
+    try {
+      return this.databaseService.send({ cmd: 'updateMovie' }, movie);
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async deleteMovie(id: string) {
+    try {
+      return this.databaseService.send({ cmd: 'deleteMovie' }, id);
+    } catch (error) {
+      return error;
+    }
   }
 }

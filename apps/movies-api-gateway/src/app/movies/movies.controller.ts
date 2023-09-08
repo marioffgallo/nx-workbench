@@ -3,39 +3,47 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
+  ValidationPipe,
+  Put,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { MovieDto } from '@nx-workbench/movies-lib';
 
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
-  @Post()
-  create(@Body() createMovieDto: CreateMovieDto) {
-    return this.moviesService.create(createMovieDto);
+  @HttpCode(HttpStatus.OK)
+  @Get('getAllMovies')
+  async getAllMovies() {
+    return this.moviesService.getAllMovies();
   }
 
-  @Get()
-  findAll() {
-    return this.moviesService.findAll();
+  @HttpCode(HttpStatus.OK)
+  @Get('findById/:id')
+  async getById(@Param() params) {
+    return this.moviesService.getById(params.id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(+id);
+  @HttpCode(HttpStatus.OK)
+  @Post('create')
+  async createMovie(@Body(ValidationPipe) movie: MovieDto) {
+    return this.moviesService.createMovie(movie);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: any) {
-    return this.moviesService.update(+id, updateMovieDto);
+  @HttpCode(HttpStatus.OK)
+  @Put('update')
+  async updateMovie(@Body(ValidationPipe) movie: MovieDto) {
+    return this.moviesService.updateMovie(movie);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.moviesService.remove(+id);
+  @HttpCode(HttpStatus.OK)
+  @Delete('delete/:id')
+  async deleteMovie(@Param() params) {
+    return this.moviesService.deleteMovie(params.id);
   }
 }

@@ -26,7 +26,7 @@ export class UserService {
 
   async getByUsername(username: string) {
     try {
-      return this.databaseService.send({ cmd: 'findByUsername' }, username);
+      return this.databaseService.send({ cmd: 'findUsername' }, username);
     } catch (error) {
       return error;
     }
